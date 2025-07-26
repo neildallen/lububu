@@ -1,0 +1,625 @@
+style.css @media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+.ca {
+  font-size: 23px;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.ca-text {
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+
+/* New background container for scattered ID cards */
+.bg-icons {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-icons img {
+  position: absolute;
+  width: 350px;
+  opacity: 1;
+}
+
+/* Random scattered positions – customize/add more */
+.bg-icons img:nth-child(1) {
+  top: 0%;
+  left: 10%;
+  transform: rotate(18deg);
+}
+
+.bg-icons img:nth-child(2) {
+  top: 25%;
+  left: 70%;
+  transform: rotate(10deg);
+}
+
+
+
+.bg-icons img:nth-child(3) {
+  top: 50%;
+  right: 2%;
+  transform: rotate(-5deg);
+}
+
+.bg-icons img:nth-child(4) {
+  top: 50%;
+  left: 2%;
+  transform: rotate(8deg);
+}
+
+.bg-icons img:nth-child(5) {
+  top: 75%;
+  left: 5%;
+  transform: rotate(-12deg);
+}
+
+.bg-icons img:nth-child(6) {
+  top: 80%;
+  left: 80%;
+  transform: rotate(20deg);
+}
+
+.bg-icons img:nth-child(7) {
+  top: 25%;
+  left: 10%;
+  transform: rotate(-18deg);
+}
+
+.bg-icons img:nth-child(8) {
+  top: 0%;
+  right: 5%;
+  transform: rotate(18deg);
+}
+
+/* Overall form layout */
+.id-form {
+  background: white;
+  color: black;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 5px solid black;
+  /* margin-top: 1rem; */
+}
+
+/* Form rows (2-column layout) */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Labels inside row */
+.form-row label {
+  flex: 1;
+  min-width: 42%;
+}
+
+/* Input and select fields */
+.id-form input,
+.id-form select {
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-top: 0.4rem;
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Individual labels (like for Job or Age) */
+.id-form label {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Logo spacing fix */
+.header img.logo {
+  width: 120px;
+  margin: 5px auto;
+}
+
+/* Footer list styling */
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.footer li {
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+/* DALL·E line text */
+.img-or-upload {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #444;
+  margin-bottom: -0.5rem;
+}
+
+/* Buttons */
+.id-form button {
+  background: rgb(185, 1, 1);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+  border: none;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.id-form button:hover {
+  background: black;
+}
+
+.header nav a {
+  color: red;
+  text-decoration: underline;
+  margin: 0 0.5rem;
+}
+
+.header nav a:hover {
+  color: #ff4d4d;
+}
+
+.id-card {
+  max-width: 800px;
+  margin: 2em auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Arial Black', Arial, sans-serif;
+  position: relative;
+  padding-bottom: 20px;
+  color: #111;
+}
+
+.idcard-header {
+  background: #c00;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 1em 2em 0.5em 2em;
+  position: relative;
+}
+
+.idcard-badge {
+  display: flex;
+  align-items: center;
+  margin-right: 2em;
+}
+
+.idcard-badge-circle {
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  background: #fff;
+  color: #c00;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+.idcard-badge-text {
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.idcard-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #c00;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 #fff, 2px 2px 0 #bbb;
+}
+
+.idcard-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.2em 2em 1.2em 2em;
+  gap: 1.5em;
+}
+
+.idcard-fields {
+  font-size: 1em;
+  font-weight: 500;
+  color: #222;
+}
+
+.idcard-fields-cols {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+.idcard-fields-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  min-width: 160px;
+  align-items: flex-start;
+  font-size: 1em;
+}
+
+.idcard-label {
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.98em;
+}
+
+.idcard-photo-frame {
+  width: 178px;
+  height: 178px;
+  border: none;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2em;
+}
+
+#cardPhoto {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #e0e0e0;
+  border: 4px solid #c00;
+}
+
+.pulse-warning {
+  animation: pulse 1.2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+#loading-warning,
+.pulse-warning {
+  font-size: 1.5em;
+  color: #111;
+  background: #e53935;
+  border: 3px solid #ff5252;
+  border-radius: 8px;
+  padding: 0.7em 1.5em;
+  font-weight: bold;
+  box-shadow: 0 0 16px 4px #ff5252cc;
+  animation: pulse 1s infinite;
+  display: inline-block;
+  margin: 1em auto;
+}
+
+.idcard-uses-list-container {
+  width: 100%;
+  margin: 2.5em 0 2em 0;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  z-index: 1;
+  min-height: 2em;
+}
+
+.idcard-uses-list {
+  font-size: 0.8em;
+  color: #444;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.2em 2em;
+  list-style: disc inside;
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+}
+
+.idcard-uses-list li {
+  margin-bottom: 0.1em;
+}
+
+.idcard-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #f7f7f7;
+  padding: 1em 2em 0.5em 2em;
+  border-top: 1px solid #eee;
+  min-height: 25%;
+  box-sizing: border-box;
+}
+
+.idcard-uses-title {
+  font-size: 1em;
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 0.2em;
+}
+
+.idcard-download-btn {
+  display: block;
+  background: #c00;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8em 2em;
+  margin: 2em auto 0 auto;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s;
+}
+
+.idcard-download-btn:hover {
+  background: #a00;
+}
+
+@media (max-width: 700px) {
+  .id-card {
+    max-width: 98vw;
+    padding: 0;
+  }
+
+  .idcard-header,
+  .idcard-body,
+  .idcard-footer {
+    padding: 1em;
+  }
+
+  .idcard-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .idcard-photo-frame {
+    margin: 1em auto 0 auto;
+  }
+
+  .idcard-fields-cols {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .idcard-footer {
+    padding: 1em 1em 0.5em 1em;
+    min-height: 30%;
+  }
+
+  .idcard-title {
+    font-size: 1.1em;
+  }
+
+  .idcard-fields-col {
+    font-size: 0.95em;
+    min-width: 120px;
+  }
+
+  #cardPhoto {
+    width: 120px;
+    height: 120px;
+  }
+
+  .idcard-photo-frame {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+#cardContent {
+  background: #fff;
+  padding: 1rem;
+  border: 2px solid #000;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+#cardContent img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+#downloadBtn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #b90101;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.idcard-address-row {
+  width: 100%;
+  font-size: 1em;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+  margin: 1em 0 0.5em 0;
+  padding-left: 2em;
+  word-break: break-word;
+}
+
+.idcard-photo-col {
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 0.95em;
+  text-align: left;
+}
+
+.idcard-address-under-image {
+  margin-top: 0.7em;
+  font-size: 0.92em;
+  color: #222;
+  text-align: left;
+  word-break: break-word;
+  max-width: 220px;
+}
+
+.idcard-main-row {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin-bottom: 1.5em;
+}
+
+.idcard-info-col {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1em;
+  text-align: left;
+}
+
+.idcard-photo-col {
+  flex: 0 0 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.idcard-photo-frame-large {
+  width: 240px;
+  height: 240px;
+  border: 5px solid #c00;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cardPhoto {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.idcard-bullets-row {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  justify-content: center;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  flex-wrap: nowrap;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.idcard-bullets-col {
+  font-size: 0.85em;
+  color: #333;
+  list-style: disc inside;
+  margin: 0 1em;
+  padding: 0;
+  min-width: 180px;
+  text-align: left;
+}
+
+.idcard-bullets-col li {
+  margin-bottom: 0.2em;
+}
+
+@media (max-width: 900px) {
+  .idcard-main-row {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .idcard-info-col,
+  .idcard-photo-col {
+    flex: 1 1 100%;
+    align-items: center;
+    text-align: left;
+  }
+
+  .idcard-photo-frame-large {
+    width: 160px;
+    height: 160px;
+  }
+
+  #cardPhoto {
+    width: 140px;
+    height: 140px;
+  }
+
+  .idcard-bullets-row {
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+  }
+
+  .idcard-bullets-col {
+    min-width: 120px;
+    font-size: 0.8em;
+  }
+}

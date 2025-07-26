@@ -1,0 +1,488 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Eyteen Plus</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    function copyCA() {
+      const caText = document.getElementById("ca-text").innerText;
+      navigator.clipboard
+        .writeText(caText)
+        .then(() => alert("CA copied to clipboard!"))
+        .catch(() => alert("Failed to copy."));
+    }
+  </script>
+  <link rel="icon" href="/favicon.png" type="image/png" />
+
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div class="bg-icons">
+    <img src="/id-1.png" alt="ID" />
+    <img src="/id-2.png" alt="ID" />
+    <img src="/id-3.png" alt="ID" />
+    <img src="/id-4.png" alt="ID" />
+    <img src="/id-5.png" alt="ID" />
+    <img src="/id-6.png" alt="ID" />
+    <img src="/id-7.png" alt="ID" />
+    <img src="/id-8.png" alt="ID" />
+  </div>
+
+  <header class="header">
+    <img src="/logo.png" class="logo" alt="18+" />
+    <h1>EYTEEN PLUS</h1>
+    <div style="display: inline-flex; align-items: center; gap: 10px;">
+      <p class="ca ca-text" id="ca-text">
+        CA:ENznRBqJRqkPjSXbvq5eFD67VfLsnFwsq8dVQj9bonk
+      </p>
+      <button id="copyCaBtn"
+        style="padding: 4px 10px; background: white; color: black; border: none; cursor: pointer; font-weight: bold;">
+        Copy CA</button>
+    </div>
+    <nav>
+      <a href="https://x.com/i/communities/1946997040690380861" target="_blank" rel="noopener noreferrer">18+
+        COMMUNITY</a>
+      <a href="https://letsbonk.fun/token/ENznRBqJRqkPjSXbvq5eFD67VfLsnFwsq8dVQj9bonk" target="_blank"
+        rel="noopener noreferrer">BUY 18+</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="loading-warning" class="pulse-warning"
+      style="display:none; color: white; font-weight: bold; text-align: center; margin-bottom: 1em;">
+      ⚠️ Image generating... please wait!
+    </div>
+    <form id="eyteenForm" class="id-form">
+      <div class="form-row">
+        <label>
+          Gender:
+          <select id="sex">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>
+          Ethnicity:
+          <select id="ethnicity">
+            <option>White</option>
+            <option>Black</option>
+            <option>Asian</option>
+            <option>Mixed</option>
+            <option>Other</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          Hair Color:
+          <select id="hair">
+            <option>Blonde</option>
+            <option>Brown</option>
+            <option>Black</option>
+            <option>Red</option>
+            <option>Gray</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>
+          Eye Color:
+          <select id="eyes">
+            <option>Blue</option>
+            <option>Brown</option>
+            <option>Green</option>
+            <option>Hazel</option>
+            <option>Gray</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          Character Style:
+          <select id="style">
+            <option>Cyberpunk</option>
+            <option>Fantasy</option>
+            <option>Realistic</option>
+            <option>Cartoon</option>
+            <option>Pixel Art</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>
+          Name:
+          <input type="text" id="name" placeholder="e.g. John Doe" />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          Age (18+ Only):
+          <input type="number" id="age" min="18" value="18" />
+        </label>
+        <label>
+          Job:
+          <select id="job">
+            <option value="Trencher">Trencher</option>
+            <option value="KOL">KOL</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row" id="customJobLabel" style="display: none;">
+        <label>
+          Custom Job:
+          <input type="text" id="customJob" placeholder="Enter custom job" />
+        </label>
+      </div>
+
+      <p class="img-or-upload">Generate an image or upload your own</p>
+      <button type="button" id="generateDalle">🎨 Generate Image</button>
+      <label>
+        Or Upload Your Own:
+        <input type="file" id="photo" accept="image/*" />
+      </label>
+      <button type="submit">Update ID</button>
+    </form>
+
+    <section id="idCard" class="id-card" style="display: none;">
+      <div class="idcard-header">
+        <div class="idcard-badge">
+          <div class="idcard-badge-circle">18+</div>
+          <div class="idcard-badge-text">
+            <span>EYTEEN PLUS<br />MEMBER <span style="color:#bdbdbd;">$18+</span></span>
+          </div>
+        </div>
+        <div class="idcard-title">A TOTALLY NOT FAKE ID</div>
+      </div>
+      <div class="idcard-body">
+        <div class="idcard-main-row">
+          <div class="idcard-info-col">
+            <table class="idcard-info-table">
+              <tr>
+                <td class="idcard-label">NAME</td>
+                <td class="idcard-value"><span id="cardName"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">SEX</td>
+                <td class="idcard-value"><span id="cardSex"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">AGE</td>
+                <td class="idcard-value"><span id="cardAge"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">JOB</td>
+                <td class="idcard-value"><span id="cardJob"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">HAIR</td>
+                <td class="idcard-value"><span id="cardHair"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">EYES</td>
+                <td class="idcard-value"><span id="cardEyes"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">ETHNICITY</td>
+                <td class="idcard-value"><span id="cardEthnicity"></span></td>
+              </tr>
+              <tr>
+                <td class="idcard-label">ADDRESS</td>
+                <td class="idcard-value"><span id="cardAddress"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="idcard-photo-col">
+            <div class="idcard-photo-frame-large">
+              <img id="cardPhoto" src="/id-placeholder.jpg" alt="ID Photo" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="idcard-license-uses">
+        <div class="idcard-license-title">
+          You Can Use This License For Many Things.
+        </div>
+        <div class="idcard-license-list">
+          Access to the Eyteen Plus X Community &nbsp;|&nbsp; Talk to the 18+
+          Grok Companions (Ani &amp; Bad Rudi) &nbsp;|&nbsp; OnlyFans
+          &nbsp;|&nbsp; KYC &nbsp;|&nbsp; Get into a strip club &nbsp;|&nbsp;
+          Buy Alcohol &nbsp;|&nbsp; Renting A Car &nbsp;|&nbsp; Voting
+        </div>
+      </div>
+    </section>
+    <button id="downloadBtn" class="idcard-download-btn" disabled
+      style="display:none; margin: 2em auto 0 auto; pointer-events: none;">📸 Take A Screenshot & Upload It To The X
+      Community</button>
+
+    <footer class="footer">
+      <p>YOU CAN USE THIS LICENSE FOR MANY THINGS:</p>
+      <ul>
+        <li>✅ ONLYFANS</li>
+        <li>✅ KYC</li>
+        <li>✅ STRIP CLUBS</li>
+        <li>✅ BUY ALCOHOL</li>
+        <li>✅ TALK TO 18+ COMPANIONS</li>
+      </ul>
+    </footer>
+    <!--
+      COPY CA SCRIPT -->
+    <!-- COPY CA SCRIPT -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("copyCaBtn");
+        const caTextElem = document.getElementById("ca-text");
+
+        if (btn && caTextElem) {
+          btn.addEventListener("click", () => {
+            const raw = caTextElem.innerText;
+            const actualCA = raw.replace(/^CA:\s*/, "").trim(); // removes "CA: " and any space
+            navigator.clipboard
+              .writeText(actualCA)
+              .then(() => alert("CA copied to clipboard!"))
+              .catch(() => alert("Failed to copy CA."));
+          });
+        }
+      });
+    </script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("eyteenForm");
+        const idCard = document.getElementById("idCard");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const jobDropdown = document.getElementById("job");
+        const customJobField = document.getElementById("customJobLabel");
+        const dalleBtn = document.getElementById("generateDalle");
+        const loadingWarning = document.getElementById("loading-warning");
+
+        const cardName = document.getElementById("cardName");
+        const cardSex = document.getElementById("cardSex");
+        const cardAge = document.getElementById("cardAge");
+        const cardJob = document.getElementById("cardJob");
+        const cardHair = document.getElementById("cardHair");
+        const cardEyes = document.getElementById("cardEyes");
+        const cardEthnicity = document.getElementById("cardEthnicity");
+        const cardAddress = document.getElementById("cardAddress");
+        const cardPhoto = document.getElementById("cardPhoto");
+
+        jobDropdown.addEventListener("change", () => {
+          customJobField.style.display =
+            jobDropdown.value === "custom" ? "block" : "none";
+        });
+
+        function generateRandomAddress() {
+          const streets = [
+            "Maple Ave",
+            "Oak St",
+            "Elm Rd",
+            "Main Blvd",
+            "Sunset Dr",
+          ];
+          const cities = [
+            "Franklin",
+            "Springfield",
+            "Riverside",
+            "Fairview",
+            "Greenville",
+          ];
+          const states = ["CA", "NY", "TX", "FL", "IL"];
+          const zip = Math.floor(10000 + Math.random() * 89999);
+          const streetNum = Math.floor(Math.random() * 900) + 100;
+          const streetName =
+            streets[Math.floor(Math.random() * streets.length)];
+          const city = cities[Math.floor(Math.random() * cities.length)];
+          const state = states[Math.floor(Math.random() * states.length)];
+          return `${streetNum} ${streetName}, ${city}, ${state} ${zip}`;
+        }
+
+        function showIDCardWithData({
+          name,
+          sex,
+          age,
+          job,
+          hair,
+          eyes,
+          ethnicity,
+          address,
+          photoUrl,
+        }) {
+          console.log("showIDCardWithData called with:", {
+            name,
+            sex,
+            age,
+            job,
+            hair,
+            eyes,
+            ethnicity,
+            address,
+            photoUrl,
+          });
+          document.getElementById("cardName").textContent = name;
+          document.getElementById("cardSex").textContent = sex;
+          document.getElementById("cardAge").textContent = age;
+          document.getElementById("cardJob").textContent = job;
+          document.getElementById("cardHair").textContent = hair;
+          document.getElementById("cardEyes").textContent = eyes;
+          document.getElementById("cardEthnicity").textContent = ethnicity;
+          document.getElementById("cardAddress").textContent = address;
+          if (photoUrl) {
+            document.getElementById("cardPhoto").src = photoUrl;
+          } else {
+            document.getElementById("cardPhoto").src = "/id-placeholder.jpg";
+          }
+          form.style.display = "none";
+          idCard.style.display = "block";
+          downloadBtn.style.display = "block";
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const age = parseInt(document.getElementById("age").value, 10);
+          if (isNaN(age) || age < 18) {
+            alert("❌ You must be 18 or older.");
+            return;
+          }
+
+          const job =
+            jobDropdown.value === "custom"
+              ? document.getElementById("customJob").value
+              : jobDropdown.value;
+
+          showIDCardWithData({
+            name: document.getElementById("name").value,
+            sex: document.getElementById("sex").value,
+            age,
+            job,
+            hair: document.getElementById("hair").value,
+            eyes: document.getElementById("eyes").value,
+            ethnicity: document.getElementById("ethnicity").value,
+            address: generateRandomAddress(),
+            photoUrl: document.getElementById("cardPhoto").src,
+          });
+        });
+
+        document
+          .getElementById("photo")
+          .addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = () => {
+                document.getElementById("cardPhoto").src = reader.result;
+                // Show card immediately on upload
+                const age = parseInt(
+                  document.getElementById("age").value,
+                  10,
+                );
+                const job =
+                  jobDropdown.value === "custom"
+                    ? document.getElementById("customJob").value
+                    : jobDropdown.value;
+                showIDCardWithData({
+                  name: document.getElementById("name").value,
+                  sex: document.getElementById("sex").value,
+                  age,
+                  job,
+                  hair: document.getElementById("hair").value,
+                  eyes: document.getElementById("eyes").value,
+                  ethnicity: document.getElementById("ethnicity").value,
+                  address: generateRandomAddress(),
+                  photoUrl: reader.result,
+                });
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+
+        dalleBtn.addEventListener("click", async () => {
+          loadingWarning.style.display = "block";
+          dalleBtn.textContent = "🎨 Generating...";
+          dalleBtn.disabled = true;
+
+          const name = document.getElementById("name").value || "person";
+          const sex = document.getElementById("sex").value || "person";
+          const ethnicity = document.getElementById("ethnicity").value || "";
+          const hair = document.getElementById("hair").value || "";
+          const eyes = document.getElementById("eyes").value || "";
+          const job =
+            jobDropdown.value === "custom"
+              ? document.getElementById("customJob").value || "job"
+              : jobDropdown.value;
+          const age = parseInt(document.getElementById("age").value, 10);
+          const address = generateRandomAddress();
+          const style =
+            document.getElementById("style").value || "digital painting";
+          const prompt = `${style} headshot ID photo of a ${age}-year-old ${sex.toLowerCase()} ${ethnicity.toLowerCase()} with ${hair.toLowerCase()} hair and ${eyes.toLowerCase()} eyes, profession: ${job.toLowerCase()}, name: ${name}, white background, centered face`;
+
+          try {
+            const res = await fetch("/api/generate-image", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt }),
+            });
+            const data = await res.json();
+
+            if (data.imageUrl) {
+              document.getElementById("cardPhoto").src = data.imageUrl;
+              // Show card immediately on DALL·E image ready
+              showIDCardWithData({
+                name,
+                sex,
+                age,
+                job,
+                hair,
+                eyes,
+                ethnicity,
+                address,
+                photoUrl: data.imageUrl,
+              });
+            } else {
+              throw new Error("No image URL returned");
+            }
+          } catch (err) {
+            console.error("Image generation error:", err);
+            alert(
+              "⚠️ DALL·E image generation failed — using placeholder instead.",
+            );
+            document.getElementById("cardPhoto").src = "/id-placeholder.jpg";
+          } finally {
+            loadingWarning.style.display = "none";
+            dalleBtn.textContent = "🎨 Generate Image";
+            dalleBtn.disabled = false;
+          }
+        });
+
+        downloadBtn.addEventListener("click", () => {
+          // Wait for image to load before capturing
+          const cardImg = document.getElementById("cardPhoto");
+          if (!cardImg.complete) {
+            cardImg.onload = () => triggerDownload();
+          } else {
+            triggerDownload();
+          }
+          function triggerDownload() {
+            html2canvas(document.getElementById("idCard"), {
+              useCORS: true,
+            }).then((canvas) => {
+              const link = document.createElement("a");
+              link.download = "Eyteen-ID.png";
+              link.href = canvas.toDataURL("image/png");
+              link.click();
+            });
+          }
+        });
+      });
+    </script>
+  </main>
+</body>
+
+</html>
