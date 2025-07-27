@@ -4,6 +4,14 @@ style.css @media (max-width: 480px) {
   }
 }
 
+body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Russo One', sans-serif;
+}
+
 .ca {
   font-size: 23px;
 }
@@ -11,12 +19,14 @@ style.css @media (max-width: 480px) {
 h1 {
   padding: 0;
   margin: 0;
+  font-family: 'Russo One', sans-serif;
+  font-size: 60px;
 }
 
 body {
   background-color: #000;
   color: #fff;
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   text-align: center;
@@ -31,9 +41,19 @@ main {
   margin-top: 10px;
 }
 
+.ca-container {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 8px;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
 .ca-text {
   margin-top: 10px;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  /* padding: 5px; */
+  border-radius: 10px;
 }
 
 /* New background container for scattered ID cards */
@@ -51,6 +71,8 @@ main {
   position: absolute;
   width: 350px;
   opacity: 1;
+  border-radius: 20px;
+  width: 20 %;
 }
 
 /* Random scattered positions – customize/add more */
@@ -153,8 +175,9 @@ main {
 
 /* Logo spacing fix */
 .header img.logo {
-  width: 120px;
+  width: 100px;
   margin: 5px auto;
+  fill: white;
 }
 
 /* Footer list styling */
@@ -622,4 +645,19 @@ main {
     min-width: 120px;
     font-size: 0.8em;
   }
+}
+
+/* Background darken  */
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Adjust opacity here */
+  z-index: -2;
+  pointer-events: none;
 }
