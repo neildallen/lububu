@@ -48,6 +48,37 @@ window.addEventListener("DOMContentLoaded", () => {
     ease: "power2.out"
   });
 
+  // Lububu button cute color cycle
+  const lububuBtn = document.getElementById("generateLububu");
+
+  if (lububuBtn) {
+    const cuteColors = [
+      "#89CFF0", // baby blue
+      "#AFCBFF", // powdery periwinkle
+      "#FFB6C1", // baby pink
+      "#FFD6E8", // light strawberry milk
+      "#FFFACD", // cute yellow (lemon chiffon)
+      "#FFEFD5", // soft peach cream
+      "#FFDEAD", // peachy
+      "#E0BBE4", // soft lavender
+      "#CBAACB", // dusty mauve
+      "#A3D8F4", // sky pastel blue (blends back to #89CFF0 nicely)
+    ];
+
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4 });
+
+    cuteColors.forEach((color) => {
+      tl.to(lububuBtn, {
+        backgroundColor: color,
+        duration: 1.2,
+        ease: "power1.inOut"
+      });
+    });
+  }
+
+
+
+
   // Background icon animation
   gsap.from(".bg-icons img", {
     duration: 0.8,
