@@ -86,22 +86,71 @@ Photographed under soft studio lighting on a white background. Clean product sho
     }
   });
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const vals = getValues();
+
     if (photo.files.length) {
       const file = photo.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Display uploaded image in the placeholder
-        if (imagePlaceholder) {
-          imagePlaceholder.innerHTML = `<img src="${reader.result}" alt="Your uploaded Labubu" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
-        }
 
-        // Log the uploaded image with form values for reference
-        console.log("Uploaded image with form values:", vals);
-      };
-      reader.readAsDataURL(file);
+      // Show loading warning and hide submit button
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.style.display = "none";
+      }
+
+      const loadingWarning = document.getElementById("loading-warning");
+      if (loadingWarning) {
+        loadingWarning.style.display = "block";
+      }
+
+      try {
+        // Convert file to base64 for API
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const base64Data = reader.result.split(',')[1]; // Remove data:image/...;base64, prefix
+
+          // Send to API for image variation
+          const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              mode: "image-to-image",
+              imageData: base64Data
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
+          // Display the generated image variation
+          if (imagePlaceholder) {
+            imagePlaceholder.innerHTML = `<img src="${data.imageUrl}" alt="Your generated Labubu variation" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+          }
+
+          console.log("Image variation generated successfully:", data.imageUrl);
+        };
+        reader.readAsDataURL(file);
+
+      } catch (error) {
+        console.error("Error generating image variation:", error);
+        alert("Failed to generate image variation. Please try again.");
+      } finally {
+        // Hide loading warning and show submit button again
+        if (loadingWarning) {
+          loadingWarning.style.display = "none";
+        }
+        if (submitBtn) {
+          submitBtn.style.display = "block";
+        }
+      }
     } else {
       alert("Please upload an image.");
     }
