@@ -15,6 +15,11 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(__dirname));
 app.use(express.json());
 
+// Root route handler
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.post("/api/generate-image", async (req, res) => {
   const { prompt } = req.body;
 
@@ -65,6 +70,11 @@ app.post("/api/generate-image", async (req, res) => {
     console.error("DALL·E error:", err);
     res.status(500).json({ error: "Image generation failed: " + err.message });
   }
+});
+
+// Catch-all route for SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
