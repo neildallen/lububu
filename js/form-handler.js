@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("lububuForm");
   const photo = document.getElementById("photo");
   const generateBtn = document.getElementById("generateLububu");
-  const imgEl = document.getElementById("lububuImage");
+  const imagePlaceholder = document.getElementById("image-placeholder");
 
   function getValues() {
     return {
@@ -31,10 +31,13 @@ Photographed under soft studio lighting on a white background. Clean product sho
     console.log("Generating Labubu with prompt:", prompt);
     console.log("Form values:", vals);
 
-    // Show loading warning
+    // Show loading warning and hide generate button
     const loadingWarning = document.getElementById("loading-warning");
     if (loadingWarning) {
       loadingWarning.style.display = "block";
+    }
+    if (generateBtn) {
+      generateBtn.style.display = "none";
     }
 
     try {
@@ -54,13 +57,17 @@ Photographed under soft studio lighting on a white background. Clean product sho
         throw new Error(data.error);
       }
 
-      // Display the generated image
-      imgEl.src = data.imageUrl;
-      imgEl.style.display = "block";
+      // Display the generated image in the placeholder
+      if (imagePlaceholder) {
+        imagePlaceholder.innerHTML = `<img src="${data.imageUrl}" alt="Your generated Labubu" style="max-width: 300px; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+      }
 
-      // Hide loading warning
+      // Hide loading warning and show generate button again
       if (loadingWarning) {
         loadingWarning.style.display = "none";
+      }
+      if (generateBtn) {
+        generateBtn.style.display = "block";
       }
 
       console.log("Image generated successfully:", data.imageUrl);
@@ -69,9 +76,12 @@ Photographed under soft studio lighting on a white background. Clean product sho
       console.error("Error generating image:", error);
       alert("Failed to generate image. Please try again.");
 
-      // Hide loading warning on error
+      // Hide loading warning and show generate button again on error
       if (loadingWarning) {
         loadingWarning.style.display = "none";
+      }
+      if (generateBtn) {
+        generateBtn.style.display = "block";
       }
     }
   });
@@ -83,8 +93,10 @@ Photographed under soft studio lighting on a white background. Clean product sho
       const file = photo.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        imgEl.src = reader.result;
-        imgEl.style.display = "block";
+        // Display uploaded image in the placeholder
+        if (imagePlaceholder) {
+          imagePlaceholder.innerHTML = `<img src="${reader.result}" alt="Your uploaded Labubu" style="max-width: 300px; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+        }
 
         // Log the uploaded image with form values for reference
         console.log("Uploaded image with form values:", vals);
