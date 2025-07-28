@@ -228,16 +228,34 @@ Photographed under soft studio lighting on a white background. Clean product sho
       userImage.src = e.target.result;
       uploadedImageData = e.target.result;
 
-      // Reset position and show alignment tool
-      currentX = 0;
-      currentY = 0;
-      currentScale = 1;
-      zoomSlider.value = 100;
-      zoomValue.textContent = "100%";
-      updateImageTransform();
+      // Wait for image to load, then calculate proper scaling
+      userImage.onload = () => {
+        const containerSize = 512;
+        const imgWidth = userImage.naturalWidth;
+        const imgHeight = userImage.naturalHeight;
 
-      imageAlignmentContainer.style.display = "block";
-      imagePlaceholder.style.display = "none";
+        // Calculate scale to fit image within container
+        const scaleX = containerSize / imgWidth;
+        const scaleY = containerSize / imgHeight;
+        const minScale = Math.min(scaleX, scaleY);
+
+        // Set initial scale to fit the image (minimum 50% zoom)
+        const initialScale = Math.max(minScale, 0.5);
+        currentScale = initialScale;
+
+        // Update zoom slider to match
+        const zoomPercent = Math.round(initialScale * 100);
+        zoomSlider.value = zoomPercent;
+        zoomValue.textContent = `${zoomPercent}%`;
+
+        // Reset position
+        currentX = 0;
+        currentY = 0;
+        updateImageTransform();
+
+        imageAlignmentContainer.style.display = "block";
+        imagePlaceholder.style.display = "none";
+      };
     };
     reader.readAsDataURL(file);
   });
