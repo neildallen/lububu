@@ -136,6 +136,38 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Generate a circular mask (white on black) matching the alignment tool
+  function generateMask() {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 512;
+    canvas.height = 512;
+
+    // Fill black
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, 512, 512);
+
+    // Draw white circle (match mask overlay)
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(256, 256, 120, 0, 2 * Math.PI); // 120px radius, center
+    ctx.closePath();
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.restore();
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64Data = reader.result.split(',')[1];
+          resolve(base64Data);
+        };
+        reader.readAsDataURL(blob);
+      }, 'image/png');
+    });
+  }
+
   generateBtn.addEventListener("click", async () => {
     const vals = getValues();
     const prompt = `A stylized plush toy creature inspired by the Labubu toy line. 
@@ -305,6 +337,8 @@ Photographed under soft studio lighting on a white background. Clean product sho
     try {
       // Crop the image based on current alignment
       const croppedImageData = await cropImage();
+      // Generate the mask
+      const maskData = await generateMask();
 
       const vals = getValues();
 
@@ -315,6 +349,7 @@ Photographed under soft studio lighting on a white background. Clean product sho
         body: JSON.stringify({
           mode: "image-to-image",
           imageData: croppedImageData,
+          maskData: maskData,
           formValues: vals
         })
       });
