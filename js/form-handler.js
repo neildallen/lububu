@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const zoomValue = document.getElementById("zoom-value");
   const resetPositionBtn = document.getElementById("reset-position");
   const processImageBtn = document.getElementById("process-image");
+  const makeLububuFromImageBtn = document.getElementById("makeLububuFromImage");
 
   // Image alignment state
   let isDragging = false;
@@ -239,8 +240,8 @@ Photographed under soft studio lighting on a white background. Clean product sho
         const scaleY = containerSize / imgHeight;
         const minScale = Math.min(scaleX, scaleY);
 
-        // Set initial scale to fit the image (minimum 50% zoom)
-        const initialScale = Math.max(minScale, 0.5);
+        // Set initial scale to fit the image (minimum 50% zoom, maximum 200%)
+        const initialScale = Math.max(Math.min(minScale, 2.0), 0.5);
         currentScale = initialScale;
 
         // Update zoom slider to match
@@ -248,16 +249,46 @@ Photographed under soft studio lighting on a white background. Clean product sho
         zoomSlider.value = zoomPercent;
         zoomValue.textContent = `${zoomPercent}%`;
 
-        // Reset position
+        // Reset position to center
         currentX = 0;
         currentY = 0;
         updateImageTransform();
+
+        // Ensure the image is visible by centering it
+        setTimeout(() => {
+          const imageRect = userImage.getBoundingClientRect();
+          const containerRect = imageContainer.getBoundingClientRect();
+
+          // If image is outside container bounds, center it
+          if (imageRect.left > containerRect.right ||
+            imageRect.right < containerRect.left ||
+            imageRect.top > containerRect.bottom ||
+            imageRect.bottom < containerRect.top) {
+            currentX = 0;
+            currentY = 0;
+            updateImageTransform();
+          }
+        }, 100);
 
         imageAlignmentContainer.style.display = "block";
         imagePlaceholder.style.display = "none";
       };
     };
     reader.readAsDataURL(file);
+  });
+
+  // Handle "Make Lububu from own image" button
+  makeLububuFromImageBtn.addEventListener("click", () => {
+    if (!uploadedImageData) {
+      alert("Please upload an image first.");
+      return;
+    }
+
+    // Show the alignment tool if it's not already visible
+    if (imageAlignmentContainer.style.display === "none") {
+      imageAlignmentContainer.style.display = "block";
+      imagePlaceholder.style.display = "none";
+    }
   });
 
   // Handle process image button
