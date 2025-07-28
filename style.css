@@ -240,6 +240,43 @@ main {
   background: black;
 }
 
+/* Process Image Button Flashing Animation */
+#process-image.flashing {
+  animation: flashBlue 1.5s ease-in-out infinite;
+}
+
+@keyframes flashBlue {
+  0% {
+    background: #89CFF0;
+    /* Light blue */
+    color: black;
+  }
+
+  25% {
+    background: #5B9BD5;
+    /* Medium blue */
+    color: white;
+  }
+
+  50% {
+    background: #2E86AB;
+    /* Darker blue */
+    color: white;
+  }
+
+  75% {
+    background: #1E5F8A;
+    /* Even darker blue */
+    color: white;
+  }
+
+  100% {
+    background: #89CFF0;
+    /* Back to light blue */
+    color: black;
+  }
+}
+
 .header nav a {
   color: red;
   text-decoration: underline;

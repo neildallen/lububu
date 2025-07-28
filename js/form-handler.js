@@ -304,6 +304,9 @@ Photographed under soft studio lighting on a white background. Clean product sho
 
         imageAlignmentContainer.style.display = "block";
         imagePlaceholder.style.display = "none";
+
+        // Add flashing animation to Process Image button
+        processImageBtn.classList.add("flashing");
       };
     };
     reader.readAsDataURL(file);
@@ -330,9 +333,10 @@ Photographed under soft studio lighting on a white background. Clean product sho
       return;
     }
 
-    // Show loading
+    // Show loading and stop flashing
     processImageBtn.disabled = true;
     processImageBtn.textContent = "Processing...";
+    processImageBtn.classList.remove("flashing");
 
     try {
       // Crop the image based on current alignment
@@ -388,6 +392,7 @@ Photographed under soft studio lighting on a white background. Clean product sho
       // Reset button
       processImageBtn.disabled = false;
       processImageBtn.textContent = "Process Image";
+      processImageBtn.classList.remove("flashing");
     }
   });
 
