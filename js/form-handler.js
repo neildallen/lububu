@@ -147,10 +147,10 @@ window.addEventListener("DOMContentLoaded", () => {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, 512, 512);
 
-    // Draw white circle (match mask overlay)
+    // Draw smaller white circle (radius 70px)
     ctx.save();
     ctx.beginPath();
-    ctx.arc(256, 256, 120, 0, 2 * Math.PI); // 120px radius, center
+    ctx.arc(256, 256, 70, 0, 2 * Math.PI); // 70px radius, center
     ctx.closePath();
     ctx.fillStyle = "white";
     ctx.fill();
@@ -272,8 +272,8 @@ Photographed under soft studio lighting on a white background. Clean product sho
         const scaleY = containerSize / imgHeight;
         const minScale = Math.min(scaleX, scaleY);
 
-        // Set initial scale to fit the image (minimum 50% zoom, maximum 200%)
-        const initialScale = Math.max(Math.min(minScale, 2.0), 0.5);
+        // Set initial scale to fit the image (minimum 5% zoom, maximum 200%)
+        const initialScale = Math.max(Math.min(minScale, 2.0), 0.05);
         currentScale = initialScale;
 
         // Update zoom slider to match
