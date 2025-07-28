@@ -39,8 +39,8 @@ app.post("/api/generate-image", async (req, res) => {
       body: JSON.stringify({
         prompt,
         n: 1,
-        size: "1024x1024",
-        model: "dall-e-3",
+        size: "512x512",
+        model: "dall-e-2",
       }),
     });
 
