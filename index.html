@@ -122,6 +122,12 @@
       <label><input type="file" id="photo" accept="image/*" /></label>
       <button type="submit" style="background:#89CFF0; color:black; font-weight:bold;">Make Lububu From Own
         Image</button>
+
+      <div id="image-placeholder" style="margin-top: 1em;">
+        <img src="images/example.jpg" alt="Your Lububu will appear here"
+          style="max-width: 280px; border: 2px dashed #ccc; border-radius: 12px; display: block; margin: 0 auto;" />
+      </div>
+
     </form>
 
     <img id="lububuImage" src="" alt="Your Lububu"
@@ -136,126 +142,29 @@
         18+</button>
     </footer>
 
+
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("lububuForm");
-        const photo = document.getElementById("photo");
-        const generateBtn = document.getElementById("generateLububu");
-        const imgEl = document.getElementById("lububuImage");
+      // 🔹 Copy CA logic
+      const btn = document.getElementById("copyCaBtn");
+      const caTextElem = document.getElementById("ca-text");
 
-        function getValues() {
-          return {
-            gender: document.getElementById("gender").value,
-            teeth: document.getElementById("teeth").value,
-            furColor: document.getElementById("furColor").value,
-            eyes: document.getElementById("eyes").value,
-            mood: document.getElementById("mood").value,
-            tail: document.getElementById("tail").value,
-            accessories: document.getElementById("accessories").value,
-            clothes: document.getElementById("clothes").value
-          };
-        }
-
-        generateBtn.addEventListener("click", async () => {
-          const vals = getValues();
-          const prompt = `A stylized plush creature inspired by the Labubu toy line. Gender: ${vals.gender}, Teeth: ${vals.teeth}, Fur: ${vals.furColor}, Eyes: ${vals.eyes}, Mood: ${vals.mood}, Tail: ${vals.tail}, Accessories: ${vals.accessories}, Clothes: ${vals.clothes}. Studio lighting, white background, toy figure.`;
-          console.log("Generating Lububu with prompt:", prompt);
-          // Optional: fetch DALL·E image here and assign to imgEl.src
+      if (btn && caTextElem) {
+        btn.addEventListener("click", () => {
+          const raw = caTextElem.innerText;
+          const actualCA = raw.replace(/^CA:\s*/, "").trim();
+          navigator.clipboard.writeText(actualCA)
+            .then(() => alert("CA copied to clipboard!"))
+            .catch(() => alert("Failed to copy CA."));
         });
-
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const vals = getValues();
-          if (photo.files.length) {
-            const file = photo.files[0];
-            const reader = new FileReader();
-            reader.onload = () => {
-              imgEl.src = reader.result;
-              imgEl.style.display = "block";
-            };
-            reader.readAsDataURL(file);
-          } else {
-            alert("Please upload an image.");
-          }
-        });
-
-        // GSAP: Logo animation
-        gsap.from(".logo", {
-          duration: 2,
-          scale: 0.3,
-          y: -200,
-          ease: "bounce.out",
-          rotation: 10,
-        });
-
-        gsap.to(".logo", {
-          duration: 1.2,
-          rotate: 0,
-          ease: "elastic.out(1, 0.3)",
-          delay: 2.2
-        });
-
-        // GSAP: Title letter split + animation
-        const title = document.querySelector(".main-title");
-        const text = title.textContent;
-        title.innerHTML = text.split("").map(letter => `<span>${letter}</span>`).join("");
-        gsap.from(".main-title span", {
-          y: -100,
-          opacity: 0,
-          ease: "bounce.out",
-          duration: 1.2,
-          stagger: 0.1,
-        });
-
-        // GSAP: Background icon animation
-        gsap.from(".bg-icons img", {
-          duration: 0.8,
-          scale: 0,
-          rotation: 30,
-          ease: "elastic.out(1, 0.4)",
-          stagger: 0.05
-        });
-
-        // GSAP: Pulse animation on buttons (form + footer)
-        gsap.from(".id-form button, .footer button", {
-          scale: 0.9,
-          opacity: 0,
-          duration: 2,
-          ease: "back.out(1.7)",
-          stagger: 0.1,
-        });
-
-        // GSAP: Hover animation on buttons
-        document.querySelectorAll(".id-form button, .footer button").forEach((btn) => {
-          btn.addEventListener("mouseenter", () => {
-            gsap.to(btn, {
-              backgroundColor: "#72bfe0", // slightly darker baby blue
-              duration: 0.2,
-            });
-          });
-
-          btn.addEventListener("mouseleave", () => {
-            gsap.to(btn, {
-              backgroundColor: "#89CFF0", // original baby blue
-              duration: 0.2,
-            });
-          });
-        });
-
-
-        // Copy CA logic
-        const btn = document.getElementById("copyCaBtn");
-        const caTextElem = document.getElementById("ca-text");
-        if (btn && caTextElem) {
-          btn.addEventListener("click", () => {
-            const raw = caTextElem.innerText;
-            const actualCA = raw.replace(/^CA:\s*/, "").trim();
-            navigator.clipboard.writeText(actualCA).then(() => alert("CA copied to clipboard!")).catch(() => alert("Failed to copy CA."));
-          });
-        }
-      });
+      }
     </script>
+
+
+
   </main>
+  <!-- JS Animation files -->
+  <script src="js/animations.js"></script>
+  <script src="js/form-handler.js"></script>
 </body>
 
 </html>
