@@ -93,6 +93,20 @@ Photographed under soft studio lighting on a white background. Clean product sho
     if (photo.files.length) {
       const file = photo.files[0];
 
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+      if (!validTypes.includes(file.type)) {
+        alert("Please upload a PNG or JPG image file.");
+        return;
+      }
+
+      // Validate file size (max 4MB for DALL-E)
+      const maxSize = 4 * 1024 * 1024; // 4MB
+      if (file.size > maxSize) {
+        alert("Please upload an image smaller than 4MB.");
+        return;
+      }
+
       // Show loading warning and hide submit button
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
