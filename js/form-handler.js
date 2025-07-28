@@ -130,7 +130,8 @@ Photographed under soft studio lighting on a white background. Clean product sho
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               mode: "image-to-image",
-              imageData: base64Data
+              imageData: base64Data,
+              formValues: vals
             })
           });
 
