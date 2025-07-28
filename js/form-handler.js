@@ -37,22 +37,43 @@ Photographed under soft studio lighting on a white background. Clean product sho
       loadingWarning.style.display = "block";
     }
 
-    // TODO: Add DALL·E API call here
-    // const response = await fetch('/api/generate-image', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ prompt })
-    // });
-    // const data = await response.json();
-    // imgEl.src = data.imageUrl;
-    // imgEl.style.display = "block";
+    try {
+      const response = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
 
-    // Hide loading warning after a delay (remove this when API is implemented)
-    setTimeout(() => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Display the generated image
+      imgEl.src = data.imageUrl;
+      imgEl.style.display = "block";
+
+      // Hide loading warning
       if (loadingWarning) {
         loadingWarning.style.display = "none";
       }
-    }, 3000);
+
+      console.log("Image generated successfully:", data.imageUrl);
+
+    } catch (error) {
+      console.error("Error generating image:", error);
+      alert("Failed to generate image. Please try again.");
+
+      // Hide loading warning on error
+      if (loadingWarning) {
+        loadingWarning.style.display = "none";
+      }
+    }
   });
 
   form.addEventListener("submit", (e) => {
