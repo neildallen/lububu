@@ -1,3 +1,6 @@
+
+
+
 window.addEventListener("DOMContentLoaded", () => {
   // Title animation
   const title = document.querySelector(".main-title");
@@ -26,6 +29,23 @@ window.addEventListener("DOMContentLoaded", () => {
     rotate: 0,
     ease: "elastic.out(1, 0.3)",
     delay: 2.2
+  });
+
+  // CA container slides in smoothly from left
+  gsap.from(".ca-container", {
+    x: -800,           // starts off-screen to the left
+    opacity: 0,        // fade in
+    duration: 1.2,     // total time
+    ease: "power4.out" // fast start, slow finish — natural easing
+  });
+
+  // Form flips in from the left
+  gsap.from(".id-form", {
+    duration: 1.2,
+    opacity: 0,
+    rotationY: -90,          // flip from left
+    transformOrigin: "left center", // pivot on the left edge
+    ease: "power2.out"
   });
 
   // Background icon animation
