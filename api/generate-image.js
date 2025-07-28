@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
   if (!process.env.OPENAI_API_KEY) {
     console.error("OpenAI API key not found");
+    console.error("Available environment variables:", Object.keys(process.env));
     return res.status(500).json({ error: "API key not configured" });
   }
 
