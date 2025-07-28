@@ -40,11 +40,6 @@
   </header>
 
   <main>
-    <div id="loading-warning" class="pulse-warning"
-      style="display:none; color: white; font-weight: bold; text-align: center; margin-bottom: 1em;">
-      ⚠️ Image generating... please wait!
-    </div>
-
     <form id="lububuForm" class="id-form">
       <div class="form-row">
         <label>Gender:<select id="gender">
@@ -125,6 +120,10 @@
       <!-- <p class="img-or-upload">add your own pic</p> -->
       <button type="button" id="generateLububu" style="background:#89CFF0; color:black; font-weight:bold;">🎨 Generate
         Lububu</button>
+      <div id="loading-warning" class="pulse-warning"
+        style="display:none; color: black; font-weight: bold; text-align: center; margin: 0.5rem 0;">
+        ⚠️ Image generating... please wait!
+      </div>
 
       <div class="file-upload-row">
         <label class="file-input-label"><input type="file" id="photo" accept="image/*" /></label>

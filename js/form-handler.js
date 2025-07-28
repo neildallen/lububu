@@ -59,7 +59,7 @@ Photographed under soft studio lighting on a white background. Clean product sho
 
       // Display the generated image in the placeholder
       if (imagePlaceholder) {
-        imagePlaceholder.innerHTML = `<img src="${data.imageUrl}" alt="Your generated Labubu" style="max-width: 300px; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+        imagePlaceholder.innerHTML = `<img src="${data.imageUrl}" alt="Your generated Labubu" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
       }
 
       // Hide loading warning and show generate button again
@@ -95,7 +95,7 @@ Photographed under soft studio lighting on a white background. Clean product sho
       reader.onload = () => {
         // Display uploaded image in the placeholder
         if (imagePlaceholder) {
-          imagePlaceholder.innerHTML = `<img src="${reader.result}" alt="Your uploaded Labubu" style="max-width: 300px; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+          imagePlaceholder.innerHTML = `<img src="${reader.result}" alt="Your uploaded Labubu" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
         }
 
         // Log the uploaded image with form values for reference
