@@ -736,3 +736,107 @@ body::before {
     min-width: 30%;
   }
 }
+
+/* Head-in-Circle Mask Alignment Tool Styles */
+.image-container {
+  position: relative;
+  width: 512px;
+  height: 512px;
+  margin: 0 auto;
+  border: 3px solid #f3a2df;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1a1a1a;
+  cursor: move;
+  user-select: none;
+}
+
+.user-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  max-width: none;
+  max-height: none;
+  cursor: move;
+  transition: transform 0.1s ease-out;
+}
+
+.mask-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at center,
+      transparent 120px,
+      rgba(243, 162, 223, 0.3) 120px,
+      rgba(243, 162, 223, 0.3) 125px,
+      transparent 125px);
+  border-radius: 12px;
+}
+
+.alignment-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.alignment-controls label {
+  color: #f3a2df;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.alignment-controls input[type="range"] {
+  accent-color: #f3a2df;
+}
+
+#image-alignment-container {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(26, 26, 26, 0.8);
+  border-radius: 12px;
+  border: 2px solid #f3a2df;
+}
+
+/* Responsive adjustments for the alignment tool */
+@media (max-width: 600px) {
+  .image-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .mask-overlay {
+    background: radial-gradient(circle at center,
+        transparent 95px,
+        rgba(243, 162, 223, 0.3) 95px,
+        rgba(243, 162, 223, 0.3) 100px,
+        transparent 100px);
+  }
+
+  .alignment-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .image-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .mask-overlay {
+    background: radial-gradient(circle at center,
+        transparent 70px,
+        rgba(243, 162, 223, 0.3) 70px,
+        rgba(243, 162, 223, 0.3) 75px,
+        transparent 75px);
+  }
+}

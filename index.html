@@ -130,7 +130,29 @@
           <input type="file" id="photo" accept="image/png,image/jpeg,image/jpg" />
           <small style="display: block; margin-top: 0.2rem; color: #666;">PNG or JPG, max 4MB</small>
         </label>
-        <button type="submit" style="background:#f3a2df; color:black; font-weight:bold;">Make Lububu From Own
+      </div>
+
+      <!-- Head-in-Circle Mask Alignment Tool -->
+      <div id="image-alignment-container" style="display: none; margin-top: 1em;">
+        <h3 style="color: #f3a2df; margin-bottom: 0.5rem;">🎯 Align Your Image</h3>
+        <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 1rem;">
+          Drag and zoom to position the head in the circle, then click "Process Image"
+        </p>
+
+        <div class="alignment-controls">
+          <label for="zoom-slider">Zoom: <span id="zoom-value">100%</span></label>
+          <input type="range" id="zoom-slider" min="50" max="300" value="100" style="width: 150px; margin: 0 1rem;">
+          <button type="button" id="reset-position"
+            style="background:#89CFF0; color:black; font-weight:bold; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">Reset</button>
+        </div>
+
+        <div id="image-container" class="image-container">
+          <img id="user-image" class="user-image" />
+          <div id="mask-overlay" class="mask-overlay"></div>
+        </div>
+
+        <button type="button" id="process-image"
+          style="background:#f3a2df; color:black; font-weight:bold; margin-top: 1rem; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">Process
           Image</button>
       </div>
 
