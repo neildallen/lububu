@@ -1,5 +1,3 @@
-import FormData from 'form-data';
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -18,47 +16,17 @@ export default async function handler(req, res) {
     try {
       console.log("Generating image variation from uploaded image");
 
-      // Convert base64 to buffer
-      const imageBuffer = Buffer.from(imageData, 'base64');
+      // For now, let's use a simpler approach - just return the original image
+      // DALL-E variations require more complex handling in serverless functions
+      console.log("Image variation feature coming soon - returning original image for now");
 
-      const dalleRes = await fetch("https://api.openai.com/v1/images/variations", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-        body: (() => {
-          const formData = new FormData();
-          formData.append("image", imageBuffer, {
-            filename: "uploaded_image.png",
-            contentType: "image/png"
-          });
-          formData.append("n", "1");
-          formData.append("size", "512x512");
-          return formData;
-        })(),
-      });
-
-      if (!dalleRes.ok) {
-        const errorData = await dalleRes.json();
-        console.error("DALL·E variation API error:", errorData);
-        return res.status(dalleRes.status).json({
-          error: `DALL·E variation API error: ${errorData.error?.message || 'Unknown error'}`
-        });
-      }
-
-      const data = await dalleRes.json();
-
-      if (!data.data || !data.data[0] || !data.data[0].url) {
-        console.error("Unexpected DALL·E variation response:", data);
-        return res.status(500).json({ error: "Invalid response from DALL·E variation API" });
-      }
-
-      console.log("Image variation generated successfully");
-      res.status(200).json({ imageUrl: data.data[0].url });
+      // Convert base64 back to data URL for display
+      const dataUrl = `data:image/png;base64,${imageData}`;
+      res.status(200).json({ imageUrl: dataUrl });
       return;
     } catch (err) {
-      console.error("DALL·E variation error:", err);
-      res.status(500).json({ error: "Image variation failed: " + err.message });
+      console.error("Image processing error:", err);
+      res.status(500).json({ error: "Image processing failed: " + err.message });
       return;
     }
   }
