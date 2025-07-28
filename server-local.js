@@ -14,6 +14,8 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(__dirname));
 app.use(express.json({ limit: '10mb' }));
 
+// NOTE: DALL·E 3 does not support image-to-image or inpainting via API as of July 2025.
+// For both modes, we use prompt-based generation only.
 app.post("/api/generate-image", async (req, res) => {
   const { prompt, imageData, mode, formValues } = req.body;
 
@@ -23,58 +25,17 @@ app.post("/api/generate-image", async (req, res) => {
   }
 
   try {
-    // Handle image-to-image generation
-    if (mode === "image-to-image" && imageData) {
-      console.log("Processing image with DALL-E 2");
+    let dallePrompt = prompt;
+    if (mode === "image-to-image" && formValues) {
+      // Use form values to build the prompt
       const vals = formValues || {};
-      const labubuPrompt = `A stylized plush toy creature inspired by the Labubu toy line. 
+      dallePrompt = `A stylized plush toy creature inspired by the Labubu toy line. 
 This ${vals.gender?.toLowerCase() || 'cute'} character has ${vals.teeth?.toLowerCase() || 'friendly'} teeth, 
 ${vals.furColor?.toLowerCase() || 'colorful'} fur, and ${vals.eyeColor?.toLowerCase() || 'bright'} eyes, 
 with a ${vals.tail?.toLowerCase() || 'adorable'} tail and a ${vals.mood?.toLowerCase() || 'happy'} personality. 
 They wear ${vals.clothes?.toLowerCase() || 'cute'} with a ${vals.accessories?.toLowerCase() || 'charming'} accessory, 
 and embody the mystic power of a "${vals.power || 'magic'}". 
 Photographed under soft studio lighting on a white background. Clean product shot.`;
-
-      const dalleRes = await fetch("https://api.openai.com/v1/images/generations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          prompt: labubuPrompt,
-          n: 1,
-          size: "512x512",
-          model: "dall-e-2",
-        }),
-      });
-
-      if (!dalleRes.ok) {
-        const errorData = await dalleRes.json();
-        console.error("DALL·E API error:", errorData);
-        return res.status(dalleRes.status).json({
-          error: `DALL·E API error: ${errorData.error?.message || 'Unknown error'}`
-        });
-      }
-
-      const data = await dalleRes.json();
-
-      if (!data.data || !data.data[0] || !data.data[0].url) {
-        console.error("Unexpected DALL·E response:", data);
-        return res.status(500).json({ error: "Invalid response from DALL·E API" });
-      }
-
-      console.log("Labubu character generated successfully");
-      res.status(200).json({
-        imageUrl: data.data[0].url,
-        message: "Your Labubu character has been created based on your form settings!"
-      });
-      return;
-    }
-
-    // Handle text-to-image generation
-    if (!prompt) {
-      return res.status(400).json({ error: "Prompt is required for text-to-image generation" });
     }
 
     const dalleRes = await fetch("https://api.openai.com/v1/images/generations", {
@@ -84,10 +45,10 @@ Photographed under soft studio lighting on a white background. Clean product sho
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        prompt,
+        prompt: dallePrompt,
         n: 1,
-        size: "512x512",
-        model: "dall-e-2",
+        size: "1024x1024",
+        model: "dall-e-3",
       }),
     });
 
@@ -106,9 +67,12 @@ Photographed under soft studio lighting on a white background. Clean product sho
       return res.status(500).json({ error: "Invalid response from DALL·E API" });
     }
 
-    console.log("Image generated successfully");
-    res.status(200).json({ imageUrl: data.data[0].url });
-
+    console.log("Labubu character generated successfully");
+    res.status(200).json({
+      imageUrl: data.data[0].url,
+      message: "Your Labubu character has been created based on your form settings!"
+    });
+    return;
   } catch (err) {
     console.error("API error:", err);
     res.status(500).json({ error: "Image generation failed: " + err.message });
