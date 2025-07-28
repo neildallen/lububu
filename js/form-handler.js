@@ -146,10 +146,17 @@ Photographed under soft studio lighting on a white background. Clean product sho
 
           // Display the generated image variation
           if (imagePlaceholder) {
-            imagePlaceholder.innerHTML = `<img src="${data.imageUrl}" alt="Your generated Labubu variation" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+            let html = `<img src="${data.imageUrl}" alt="Your uploaded image" style="max-width: 400px; width: 100%; height: auto; border: 2px solid #f089c8; border-radius: 12px; display: block; margin: 0 auto;" />`;
+
+            // Add message if provided
+            if (data.message) {
+              html += `<p style="text-align: center; margin-top: 0.5rem; color: #666; font-size: 0.9rem;">${data.message}</p>`;
+            }
+
+            imagePlaceholder.innerHTML = html;
           }
 
-          console.log("Image variation generated successfully:", data.imageUrl);
+          console.log("Image uploaded successfully:", data.imageUrl);
         };
         reader.readAsDataURL(file);
 
