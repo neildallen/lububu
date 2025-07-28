@@ -121,12 +121,15 @@
           </select></label>
       </div>
 
-      <p class="img-or-upload">add your own pic</p>
+      <!-- <p class="img-or-upload">add your own pic</p> -->
       <button type="button" id="generateLububu" style="background:#89CFF0; color:black; font-weight:bold;">🎨 Generate
         Lububu</button>
-      <label><input type="file" id="photo" accept="image/*" /></label>
-      <button type="submit" style="background:#89CFF0; color:black; font-weight:bold;">Make Lububu From Own
-        Image</button>
+
+      <div class="file-upload-row">
+        <label class="file-input-label"><input type="file" id="photo" accept="image/*" /></label>
+        <button type="submit" style="background:#89CFF0; color:black; font-weight:bold;">Make Lububu From Own
+          Image</button>
+      </div>
 
       <div id="image-placeholder" style="margin-top: 1em;">
         <img src="images/example.jpg" alt="Your Lububu will appear here"

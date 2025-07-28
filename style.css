@@ -178,6 +178,24 @@ main {
   text-align: left;
 }
 
+/* File upload row styling */
+.file-upload-row {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.file-input-label {
+  flex: 1 1 50%;
+  min-width: 50%;
+}
+
+.file-upload-row button {
+  flex: 1 1 50%;
+  min-width: 50%;
+}
+
 /* Logo spacing fix */
 .header img.logo {
   width: 100px;
